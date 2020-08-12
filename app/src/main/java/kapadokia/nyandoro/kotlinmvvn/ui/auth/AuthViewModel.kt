@@ -1,4 +1,27 @@
 package kapadokia.nyandoro.kotlinmvvn.ui.auth
 
-class AuthViewModel {
+import android.view.View
+import androidx.lifecycle.ViewModel
+
+class AuthViewModel : ViewModel() {
+
+    // defining values with type safety
+    // this variables will be responsible for getting the email and password from the UI
+    var email: String? = null
+    var password: String? = null
+
+    // function for handling login button click
+    fun onLoginButtonClicked( view: View){
+
+        // checking if email or password is empty
+        if (email.isNullOrEmpty() || password.isNullOrEmpty()){
+
+            // display error message
+
+            // stop further execution
+            return
+        }
+
+        // success
+    }
 }
