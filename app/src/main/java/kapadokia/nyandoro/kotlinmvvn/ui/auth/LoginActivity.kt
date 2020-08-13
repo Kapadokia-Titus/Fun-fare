@@ -12,6 +12,7 @@ import kapadokia.nyandoro.kotlinmvvn.data.db.entities.User
 import kapadokia.nyandoro.kotlinmvvn.databinding.ActivityLoginBinding
 import kapadokia.nyandoro.kotlinmvvn.util.hide
 import kapadokia.nyandoro.kotlinmvvn.util.show
+import kapadokia.nyandoro.kotlinmvvn.util.snackbar
 import kapadokia.nyandoro.kotlinmvvn.util.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -33,11 +34,13 @@ class LoginActivity : AppCompatActivity(), AuthListener{
 
     override fun onSuccess(user: User) {
         progress_bar.hide()
-       toast("${user.name} is Logged In")
+
+        root_layout.snackbar("${user.name} is Logged In")
+
     }
 
     override fun onFailure(message: String) {
         progress_bar.hide()
-        toast(message)
+        root_layout.snackbar(message)
     }
 }
