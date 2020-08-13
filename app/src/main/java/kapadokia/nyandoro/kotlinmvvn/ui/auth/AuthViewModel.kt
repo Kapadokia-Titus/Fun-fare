@@ -6,7 +6,9 @@ import kapadokia.nyandoro.kotlinmvvn.data.repositories.UserRepository
 import kapadokia.nyandoro.kotlinmvvn.util.ApiException
 import kapadokia.nyandoro.kotlinmvvn.util.Coroutines
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel (
+   private val repository: UserRepository
+) : ViewModel() {
 
     // defining values with type safety
     // this variables will be responsible for getting the email and password from the UI
@@ -33,7 +35,7 @@ class AuthViewModel : ViewModel() {
 
         Coroutines.main {
             try {
-                val authResponse = UserRepository().userLogin(email!!, password!!)
+                val authResponse = repository.userLogin(email!!, password!!)
                 authResponse.user?.let {
                     authListener?.onSuccess(it)
                     return@main

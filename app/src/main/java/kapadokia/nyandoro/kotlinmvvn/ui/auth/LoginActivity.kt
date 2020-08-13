@@ -8,7 +8,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kapadokia.nyandoro.kotlinmvvn.R
+import kapadokia.nyandoro.kotlinmvvn.data.db.AppDatabase
 import kapadokia.nyandoro.kotlinmvvn.data.db.entities.User
+import kapadokia.nyandoro.kotlinmvvn.data.network.MyApi
+import kapadokia.nyandoro.kotlinmvvn.data.repositories.UserRepository
 import kapadokia.nyandoro.kotlinmvvn.databinding.ActivityLoginBinding
 import kapadokia.nyandoro.kotlinmvvn.util.hide
 import kapadokia.nyandoro.kotlinmvvn.util.show
@@ -20,6 +23,10 @@ class LoginActivity : AppCompatActivity(), AuthListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val api = MyApi()
+        val db = AppDatabase(this)
+        val repository = UserRepository(api, db)
 
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
