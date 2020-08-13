@@ -2,11 +2,17 @@ package kapadokia.nyandoro.kotlinmvvn.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kapadokia.nyandoro.kotlinmvvn.R
 import kapadokia.nyandoro.kotlinmvvn.databinding.ActivityLoginBinding
+import kapadokia.nyandoro.kotlinmvvn.util.hide
+import kapadokia.nyandoro.kotlinmvvn.util.show
 import kapadokia.nyandoro.kotlinmvvn.util.toast
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), AuthListener{
 
@@ -21,14 +27,18 @@ class LoginActivity : AppCompatActivity(), AuthListener{
     }
 
     override fun onStarted() {
-        toast("login Started")
+       progress_bar.show()
     }
 
-    override fun onSuccess() {
-        toast("login Success")
+    override fun onSuccess(loginResponse: LiveData<String>) {
+        progress_bar.hide()
+        loginResponse.observe(this, Observer {
+            toast(it)
+        })
     }
 
     override fun onFailure(message: String) {
+        progress_bar.hide()
         toast(message)
     }
 }
