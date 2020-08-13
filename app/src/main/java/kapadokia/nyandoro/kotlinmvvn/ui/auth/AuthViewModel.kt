@@ -3,6 +3,7 @@ package kapadokia.nyandoro.kotlinmvvn.ui.auth
 import android.view.View
 import androidx.lifecycle.ViewModel
 import kapadokia.nyandoro.kotlinmvvn.data.repositories.UserRepository
+import kapadokia.nyandoro.kotlinmvvn.util.Coroutines
 
 class AuthViewModel : ViewModel() {
 
@@ -29,8 +30,14 @@ class AuthViewModel : ViewModel() {
             return
         }
 
-        // success
-        val loginResponse = UserRepository().userLogin(email!!, password!!)
-        authListener?.onSuccess(loginResponse)
+        Coroutines.main {
+            val response = UserRepository().userLogin(email!!, password!!)
+            if (response.isSuccessful){
+                authListener?.onSuccess(response.body()?.user!!)
+            }else{
+                authListener?.onFailure("Error Code: ${response.code()}")
+            }
+        }
+
     }
 }

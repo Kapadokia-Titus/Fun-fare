@@ -1,7 +1,9 @@
 package kapadokia.nyandoro.kotlinmvvn.data.network
 
+import kapadokia.nyandoro.kotlinmvvn.data.network.responses.AuthResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
@@ -12,10 +14,10 @@ interface MyApi {
 
     @FormUrlEncoded  // important annotation when using post request
     @POST("login")
-    fun userLogin(
+    suspend fun userLogin(
         @Field("email")email:String,
         @Field("password")password: String
-    ) : Call<ResponseBody>
+    ) : Response<AuthResponse>
 
     companion object{
         operator fun invoke() : MyApi{
@@ -23,7 +25,7 @@ interface MyApi {
                 .baseUrl("https://api.simplifiedcoding.in/course-apis/mvvm/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(MyApi::class.java)
+                .create(MyApi::class.java   )
         }
     }
 
