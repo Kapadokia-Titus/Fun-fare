@@ -10,18 +10,25 @@ class AuthViewModel : ViewModel() {
     var email: String? = null
     var password: String? = null
 
+    // an instance of auth listener
+     var authListener:AuthListener? =null
+
     // function for handling login button click
     fun onLoginButtonClicked( view: View){
 
+        authListener?.onStarted()
         // checking if email or password is empty
         if (email.isNullOrEmpty() || password.isNullOrEmpty()){
 
             // display error message
+            authListener?.onFailure("Invalid email or password")
+
 
             // stop further execution
             return
         }
 
         // success
+        authListener?.onSuccess()
     }
 }
