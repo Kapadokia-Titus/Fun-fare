@@ -9,9 +9,7 @@ import java.lang.StringBuilder
 abstract class SafeApiRequest{
 
     suspend fun <T: Any> apiRequest(call: suspend ()-> Response<T>): T{
-
         val response = call.invoke()
-
         if (response.isSuccessful){
             return response.body()!!
         }else{
@@ -23,12 +21,9 @@ abstract class SafeApiRequest{
                     message.append(JSONObject(it).getString("message"))
 
                 }catch (e: JSONException){ }
-
                 message.append("\n")
             }
-
             message.append("Error Code: ${response.code()}")
-
             throw ApiException(message.toString())
         }
     }

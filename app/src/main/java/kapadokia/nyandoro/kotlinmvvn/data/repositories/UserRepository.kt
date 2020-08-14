@@ -18,7 +18,7 @@ class UserRepository(
     }
 
     // suspend is used to perform database operations asynchronously
-    suspend fun saveUser(user:User) = db.getUserDao().upsert(user)
+    suspend fun saveUser(user: User) = db.getUserDao().upsert(user)
 
     fun getUser() = db.getUserDao().getUser()
 }

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kapadokia.nyandoro.kotlinmvvn.R
 import kapadokia.nyandoro.kotlinmvvn.data.db.AppDatabase
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity(), AuthListener{
         val factory = AuthViewModelFactory(repository)
 
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
-        val viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
+        val viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         binding.viewmodel = viewModel
         viewModel.authListener = this
