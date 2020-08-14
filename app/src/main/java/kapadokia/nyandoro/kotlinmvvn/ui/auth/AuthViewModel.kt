@@ -18,6 +18,10 @@ class AuthViewModel (
     // an instance of auth listener
      var authListener:AuthListener? =null
 
+    // to observe user changes in the local database
+    fun getLoggedInUser() = repository.getUser()
+
+
     // function for handling login button click
     fun onLoginButtonClicked( view: View){
 
@@ -38,6 +42,7 @@ class AuthViewModel (
                 val authResponse = repository.userLogin(email!!, password!!)
                 authResponse.user?.let {
                     authListener?.onSuccess(it)
+                    repository.saveUser(it)
                     return@main
                 }
 
