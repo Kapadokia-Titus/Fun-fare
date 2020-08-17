@@ -22,8 +22,8 @@ abstract class AppDatabase : RoomDatabase() {
         private val LOCK = Any() // makes sure that we do not create two instances of our database
 
         // pass context to an invoke operator, we need context to create database
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-             instance ?: buildDatabase(context).also{
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+            instance ?: buildDatabase(context).also {
                 instance = it
             }
         }
@@ -34,8 +34,9 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "MyDatabase.db"
             ).build()
-
-
-
     }
+
+
+
+
 }
