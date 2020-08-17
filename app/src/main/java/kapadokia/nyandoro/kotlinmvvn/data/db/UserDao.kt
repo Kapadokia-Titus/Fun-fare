@@ -19,6 +19,6 @@ interface UserDao {
 
     // function to give us back the stored user
     @Query("SELECT * FROM user WHERE uid = $CURRENT_USER_ID")
-    fun getUser(): LiveData<User>
+    fun getuser() : LiveData<User>
 
 }

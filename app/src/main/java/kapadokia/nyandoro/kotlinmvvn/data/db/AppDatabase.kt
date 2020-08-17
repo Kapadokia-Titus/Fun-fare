@@ -23,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         // pass context to an invoke operator, we need context to create database
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-             instance ?:buildDatabase(context).also{
+             instance ?: buildDatabase(context).also{
                 instance = it
             }
         }
