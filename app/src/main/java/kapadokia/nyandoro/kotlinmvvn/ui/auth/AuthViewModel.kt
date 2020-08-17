@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import kapadokia.nyandoro.kotlinmvvn.data.repositories.UserRepository
 import kapadokia.nyandoro.kotlinmvvn.util.ApiException
 import kapadokia.nyandoro.kotlinmvvn.util.Coroutines
+import kapadokia.nyandoro.kotlinmvvn.util.NoInternetException
 
 class AuthViewModel (
    private val repository: UserRepository
@@ -48,6 +49,8 @@ class AuthViewModel (
 
                 authListener?.onFailure(authResponse.message!!)
             }catch (e: ApiException){
+                authListener?.onFailure(e.message!!)
+            }catch (e: NoInternetException){
                 authListener?.onFailure(e.message!!)
             }
 

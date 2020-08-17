@@ -13,6 +13,7 @@ import kapadokia.nyandoro.kotlinmvvn.R
 import kapadokia.nyandoro.kotlinmvvn.data.db.AppDatabase
 import kapadokia.nyandoro.kotlinmvvn.data.db.entities.User
 import kapadokia.nyandoro.kotlinmvvn.data.network.MyApi
+import kapadokia.nyandoro.kotlinmvvn.data.network.NetworkConnectionInterceptor
 import kapadokia.nyandoro.kotlinmvvn.data.repositories.UserRepository
 import kapadokia.nyandoro.kotlinmvvn.databinding.ActivityLoginBinding
 import kapadokia.nyandoro.kotlinmvvn.ui.home.HomeActivity
@@ -27,7 +28,8 @@ class LoginActivity : AppCompatActivity(), AuthListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val api = MyApi()
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        val api = MyApi(networkConnectionInterceptor)
         val db = AppDatabase(this)
         val repository = UserRepository(api, db)
 
